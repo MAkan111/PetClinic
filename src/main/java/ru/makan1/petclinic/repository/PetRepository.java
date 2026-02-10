@@ -12,6 +12,8 @@ public interface PetRepository {
 
     List<PetDto> findByUserId(Long userId);
 
+    List<PetDto> findAll();
+
     void deleteById(Long id);
 
     void updateById(Long id, PetDto petDto);

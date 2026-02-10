@@ -1,9 +1,9 @@
 package ru.makan1.petclinic.service;
 
 import org.springframework.stereotype.Service;
-import ru.makan1.petclinic.repository.InMemoryPetRepository;
-import ru.makan1.petclinic.repository.InMemoryUserRepository;
 import ru.makan1.petclinic.model.PetDto;
+import ru.makan1.petclinic.repository.PetRepository;
+import ru.makan1.petclinic.repository.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,11 +11,12 @@ import java.util.Optional;
 @Service
 public class PetService {
 
-    private final InMemoryPetRepository petRepository;
-    private final InMemoryUserRepository userRepository;
+    private final PetRepository petRepository;
+    private final UserRepository userRepository;
 
-    public PetService(InMemoryPetRepository petRepository,
-                      InMemoryUserRepository userRepository) {
+    public PetService(PetRepository petRepository,
+                      UserRepository userRepository
+    ) {
         this.petRepository = petRepository;
         this.userRepository = userRepository;
     }

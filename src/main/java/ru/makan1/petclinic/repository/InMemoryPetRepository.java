@@ -38,6 +38,11 @@ public class InMemoryPetRepository implements PetRepository {
     }
 
     @Override
+    public List<PetDto> findAll() {
+        return new ArrayList<>(storage.values());
+    }
+
+    @Override
     public void updateById(Long id, PetDto petDto) {
         if (petDto == null || petDto.getId() == null) {
             throw new IllegalArgumentException("Сущность или ее ID не могут быть null");
@@ -51,9 +56,5 @@ public class InMemoryPetRepository implements PetRepository {
     @Override
     public void deleteById(Long id) {
         storage.remove(id);
-    }
-
-    public List<PetDto> findAll() {
-        return new ArrayList<>(storage.values());
     }
 }
