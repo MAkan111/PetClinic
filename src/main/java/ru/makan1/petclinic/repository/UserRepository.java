@@ -1,4 +1,4 @@
-package ru.makan1.petclinic.Repository;
+package ru.makan1.petclinic.repository;
 
 import ru.makan1.petclinic.model.UserDto;
 
@@ -14,5 +14,5 @@ public interface UserRepository {
 
     void deleteById(Long id);
 
-    void updateById(UserDto userDto);
+    void updateById(Long id, UserDto userDto);
 }

@@ -11,7 +11,7 @@ import ru.makan1.petclinic.service.UserService;
 import java.util.List;
 
 @RestController()
-@RequestMapping("/api/v1/user")
+@RequestMapping("/api/v1/users")
 public class UserController {
 
     private final UserService userService;
@@ -35,6 +35,12 @@ public class UserController {
         return userService.getUserById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}")
+    public void update(@PathVariable Long id,
+                       @Valid @RequestBody UserDto userDto) {
+        userService.updateUser(id, userDto);
     }
 
     @DeleteMapping("/{id}")

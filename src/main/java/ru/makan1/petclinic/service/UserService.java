@@ -1,8 +1,9 @@
 package ru.makan1.petclinic.service;
 
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
-import ru.makan1.petclinic.Repository.InMemoryPetRepository;
-import ru.makan1.petclinic.Repository.InMemoryUserRepository;
+import ru.makan1.petclinic.repository.PetRepository;
+import ru.makan1.petclinic.repository.UserRepository;
 import ru.makan1.petclinic.model.PetDto;
 import ru.makan1.petclinic.model.UserDto;
 
@@ -12,11 +13,12 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    private final InMemoryUserRepository userRepository;
-    private final InMemoryPetRepository petRepository;
+    private final UserRepository userRepository;
+    private final PetRepository petRepository;
 
-    public UserService(InMemoryUserRepository userRepository,
-                       InMemoryPetRepository petRepository) {
+    public UserService(UserRepository userRepository,
+                       PetRepository petRepository
+    ) {
         this.userRepository = userRepository;
         this.petRepository = petRepository;
     }
@@ -42,6 +44,16 @@ public class UserService {
         return userRepository.findAll().stream()
                 .map(this::enrich)
                 .toList();
+    }
+
+    public void updateUser(Long id, @Valid UserDto userDto) {
+        UserDto userToUpdate = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Пользователь не найден"));
+        userToUpdate.setName(userDto.getName());
+        userToUpdate.setAge(userDto.getAge());
+        userToUpdate.setEmail(userDto.getEmail());
+        userToUpdate.setPets(userDto.getPets());
+        userRepository.save(userToUpdate);
     }
 
     public void deleteUser(Long userId) {

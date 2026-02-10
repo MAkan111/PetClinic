@@ -1,8 +1,8 @@
 package ru.makan1.petclinic.service;
 
 import org.springframework.stereotype.Service;
-import ru.makan1.petclinic.Repository.InMemoryPetRepository;
-import ru.makan1.petclinic.Repository.InMemoryUserRepository;
+import ru.makan1.petclinic.repository.InMemoryPetRepository;
+import ru.makan1.petclinic.repository.InMemoryUserRepository;
 import ru.makan1.petclinic.model.PetDto;
 
 import java.util.List;
@@ -36,13 +36,8 @@ public class PetService {
         return petRepository.findAll();
     }
 
-    public List<PetDto> getPetsByUserId(Long userId) {
-        return petRepository.findByUserId(userId);
-    }
-
     public void updatePet(Long id, PetDto petDto) {
-        PetDto pet = petRepository.findById(id).orElseThrow();
-        pet.setName(petDto.getName());
+        petRepository.updateById(id, petDto);
     }
 
     public void deletePet(Long id) {

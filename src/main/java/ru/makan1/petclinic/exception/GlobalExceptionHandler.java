@@ -44,4 +44,17 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.NOT_FOUND)
                 .body(errorDto);
     }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ServerErrorDto> handleException(Exception e) {
+        var errorDto = new ServerErrorDto(
+                "Внутренняя ошибка сервера",
+                e.getMessage(),
+                LocalDateTime.now()
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(errorDto);
+    }
 }
